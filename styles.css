@@ -1,0 +1,21 @@
+/* styles.css */
+body {
+    color: white;
+    -webkit-app-region: drag;
+    width: fit-content;
+    position: relative;
+}
+
+
+.container {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+}
+
+/* Add styles here to customize the appearance of your app */
