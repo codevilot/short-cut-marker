@@ -1,21 +1,25 @@
 /* styles.css */
 body {
-    color: white;
-    -webkit-app-region: drag;
-    width: fit-content;
-    position: relative;
+  color: white;
+
+  width: fit-content;
+  position: relative;
 }
-
-
+.drag__bar {
+  height: 30px;
+  width: 100%;
+  text-align: center;
+  -webkit-app-region: drag;
+  border-bottom: 1px solid #373737;
+  box-sizing: border-box;
+  display: flex;
+  place-content: flex-end;
+}
 .container {
-    background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.7);
 }
-
-#closeButton {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-
+.close__button {
+  width: 30px;
+  -webkit-app-region: no-drag;
 }
-
 /* Add styles here to customize the appearance of your app */
