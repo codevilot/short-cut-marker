@@ -1,7 +1,7 @@
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const ipc = ipcMain;
 const path = require("path");
-
+const fs = require("fs");
 function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 300,
@@ -21,6 +21,18 @@ function createWindow() {
     // onWebcontentsValue 이벤트 송신
     mainWindow.webContents.send("onWebcontentsValue", "on load...");
   });
+
+  const openFile = (filePath) => {
+    fs.readFile(filePath, "utf8", (error, content) => {
+      if (error) {
+        handleError();
+      } else {
+        app.addRecentDocument(filePath);
+        openedFilePath = filePath;
+        mainWindow.webContents.send("document-opened", { filePath, content });
+      }
+    });
+  };
   ipc.on("minimizeApp", () => {
     mainWindow.minimize();
   });
@@ -35,6 +47,18 @@ function createWindow() {
 
   ipc.on("closeApp", () => {
     mainWindow.close();
+  });
+  ipc.on("open-document-triggered", () => {
+    dialog
+      .showOpenDialog({
+        properties: ["openFile"],
+        filters: [{ name: "text files", extensions: ["txt"] }],
+      })
+      .then(({ filePaths }) => {
+        const filePath = filePaths[0];
+
+        openFile(filePath);
+      });
   });
 }
 
