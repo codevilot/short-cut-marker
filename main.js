@@ -24,13 +24,13 @@ function createWindow() {
 
   const openFile = (filePath) => {
     fs.readFile(filePath, "utf8", (error, content) => {
-      if (error) {
-        handleError();
-      } else {
-        app.addRecentDocument(filePath);
-        openedFilePath = filePath;
-        mainWindow.webContents.send("document-opened", { filePath, content });
-      }
+      // if (error) {
+      //   handleError();
+      // } else {
+      app.addRecentDocument(filePath);
+      openedFilePath = filePath;
+      mainWindow.webContents.send("document-opened", { filePath, content });
+      // }
     });
   };
   ipc.on("minimizeApp", () => {
@@ -48,7 +48,7 @@ function createWindow() {
   ipc.on("closeApp", () => {
     mainWindow.close();
   });
-  ipc.on("open-document-triggered", () => {
+  ipc.on("open-document", () => {
     dialog
       .showOpenDialog({
         properties: ["openFile"],
@@ -56,7 +56,6 @@ function createWindow() {
       })
       .then(({ filePaths }) => {
         const filePath = filePaths[0];
-
         openFile(filePath);
       });
   });
