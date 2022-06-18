@@ -8,12 +8,11 @@
   <body>
     <!-- <div class="container"> -->
     <div class="title-bar">
-      <div class="title prevent-select draggable">ADD</div>
-      <div class="control prevent-select">
-        <button id="close">a</button>
-      </div>
+      <button id="read">📂</button>
+      <div class="draggable"></div>
+      <button id="close">❌</button>
     </div>
-    <div class="title-bar">
+    <div class="title-bar displaynone">
       <span class="document-name" id="documentName">no file selected</span>
 
       <div class="menu-section">
@@ -21,13 +20,13 @@
           <span class="material-icons"> launch </span>
         </button>
         <button id="createDocumentBtn">
-          <span class="material-icons"> note_add </span>
-        </button>
+          <span class="material-icons"> note_add </span></button
+        >❌
       </div>
     </div>
-    <button id="read">read</button>
+
+    <textarea id="fileTextarea" disabled class="textedit"></textarea>
     <!-- </div> -->
-    <textarea id="fileTextarea" disabled></textarea>
     <script src="./renderer.js"></script>
   </body>
 </html>
