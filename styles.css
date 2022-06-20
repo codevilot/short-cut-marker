@@ -2,15 +2,15 @@
 
 /* Add styles here to customize the appearance of your app */
 body {
-  width: fit-content;
   color: white;
+  margin: 0;
   background-color: rgba(0, 0, 0, 0.7);
-  overflow: hidden;
 }
 
 .title-bar {
   place-content: space-between;
   display: flex;
+  height: 25px;
 }
 .draggable {
   -webkit-app-region: drag;
@@ -28,4 +28,11 @@ body {
 .textedit {
   background: none;
   border: none;
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+  padding: 0px;
+  resize: none;
+  height: calc(100vh - 25px);
+  color: white;
+  margin-bottom: -5px;
 }
