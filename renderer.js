@@ -7,6 +7,7 @@ window.addEventListener("DOMContentLoaded", () => {
     // createDocumentBtn: document.getElementById("createDocumentBtn"),
     openDocumentBtn: document.getElementById("openDocumentBtn"),
     fileTextarea: document.getElementById("fileTextarea"),
+    opacity: document.getElementById("opacity"),
   };
   const handleDocumentChange = (filePath, content = "") => {
     // el.documentName.innerHTML = path.parse(filePath).base;
@@ -26,5 +27,10 @@ window.addEventListener("DOMContentLoaded", () => {
   });
   el.fileTextarea.addEventListener("input", (e) => {
     ipcRenderer.send("file-content-updated", e.target.value);
+  });
+  el.opacity.addEventListener("input", (e) => {
+    document.querySelector(
+      "#body"
+    ).style.backgroundColor = `rgba(0, 0, 0, ${e.target.value})`;
   });
 });
