@@ -13,26 +13,20 @@ function createWindow() {
       contextIsolation: false,
     },
   });
-
   mainWindow.loadFile("index.html");
   mainWindow.setAlwaysOnTop(true, "floating");
-  // 웹 페이지 로드 완료
   mainWindow.webContents.on("did-finish-load", (evt) => {
-    // onWebcontentsValue 이벤트 송신
     mainWindow.webContents.send("onWebcontentsValue", "on load...");
   });
-
   const openFile = (filePath) => {
     fs.readFile(filePath, "utf8", (error, content) => {
-      // if (error) {
-      //   handleError();
-      // } else {
       app.addRecentDocument(filePath);
       openedFilePath = filePath;
       mainWindow.webContents.send("document-opened", { filePath, content });
       // }
     });
   };
+
   ipc.on("minimizeApp", () => {
     mainWindow.minimize();
   });
@@ -44,7 +38,6 @@ function createWindow() {
       mainWindow.maximize();
     }
   });
-
   ipc.on("closeApp", () => {
     mainWindow.close();
   });
@@ -59,6 +52,13 @@ function createWindow() {
         openFile(filePath);
       });
   });
+  ipc.on("file-content-updated", (_, textareaContent) => {
+    fs.writeFile(openedFilePath, textareaContent, (error) => {
+      if (error) {
+        handleError();
+      }
+    });
+  });
 }
 
 app.whenReady().then(() => {
@@ -66,16 +66,6 @@ app.whenReady().then(() => {
 
   app.on("activate", function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
-  });
-
-  // onInputValue 이벤트 수신
-  ipcMain.on("onInputValue", (evt, payload) => {
-    console.log("on ipcMain event:: ", payload);
-
-    const computedPayload = payload + "(computed)";
-
-    // replyInputValue 송신 또는 응답
-    evt.reply("replyInputValue", computedPayload);
   });
 });
 
