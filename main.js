@@ -1,4 +1,5 @@
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
+const storage = require("electron-localStorage");
 const ipc = ipcMain;
 const path = require("path");
 const fs = require("fs");
@@ -23,6 +24,7 @@ function createWindow() {
       app.addRecentDocument(filePath);
       openedFilePath = filePath;
       mainWindow.webContents.send("document-opened", { filePath, content });
+      storage.setItem("recentfile", filePath);
       // }
     });
   };

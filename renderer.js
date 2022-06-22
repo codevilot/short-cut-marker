@@ -1,6 +1,8 @@
 const { ipcRenderer } = require("electron");
 const ipc = ipcRenderer;
+const storage = require("electron-localStorage");
 const path = require("path");
+const fs = require("fs");
 window.addEventListener("DOMContentLoaded", () => {
   const el = {
     // documentName: document.getElementById("documentName"),
@@ -9,6 +11,7 @@ window.addEventListener("DOMContentLoaded", () => {
     fileTextarea: document.getElementById("fileTextarea"),
     opacity: document.getElementById("opacity"),
   };
+  const recentfile = storage.getItem("recentfile");
   const handleDocumentChange = (filePath, content = "") => {
     // el.documentName.innerHTML = path.parse(filePath).base;
     el.fileTextarea.removeAttribute("disabled");
@@ -33,4 +36,9 @@ window.addEventListener("DOMContentLoaded", () => {
       "#body"
     ).style.backgroundColor = `rgba(0, 0, 0, ${e.target.value})`;
   });
+  if (recentfile) {
+    fs.readFile(recentfile, "utf8", (error, content) => {
+      handleDocumentChange(recentfile, content);
+    });
+  }
 });

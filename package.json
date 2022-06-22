@@ -18,5 +18,9 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^19.0.4"
+  },
+  "dependencies": {
+    "electron-browser-storage": "^1.0.7",
+    "electron-localstorage": "^1.0.5"
   }
 }
