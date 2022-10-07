@@ -1,0 +1,49 @@
+/* styles.css */
+
+/* Add styles here to customize the appearance of your app */
+body {
+  color: white;
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.title-bar {
+  place-content: space-between;
+  display: flex;
+  height: 25px;
+}
+.draggable {
+  -webkit-app-region: drag;
+  width: -webkit-fill-available;
+}
+#close,
+#read {
+  background: none;
+  border: none;
+  filter: brightness(0) invert(1);
+}
+.displaynone {
+  display: none;
+}
+.textedit {
+  background: none;
+  box-sizing: border-box;
+  border: none;
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+  padding: 10px;
+  resize: none;
+  height: calc(100vh - 25px);
+  color: white;
+  margin-bottom: -5px;
+}
+#contentWrapper {
+  position: relative;
+}
+#content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

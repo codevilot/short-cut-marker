@@ -5,25 +5,24 @@ const path = require("path");
 const fs = require("fs");
 window.addEventListener("DOMContentLoaded", () => {
   const el = {
-    // documentName: document.getElementById("documentName"),
-    // createDocumentBtn: document.getElementById("createDocumentBtn"),
     openDocumentBtn: document.getElementById("openDocumentBtn"),
     fileTextarea: document.getElementById("fileTextarea"),
     opacity: document.getElementById("opacity"),
   };
   const recentfile = storage.getItem("recentfile");
   const handleDocumentChange = (filePath, content = "") => {
-    // el.documentName.innerHTML = path.parse(filePath).base;
     el.fileTextarea.removeAttribute("disabled");
     el.fileTextarea.value = content;
     el.fileTextarea.focus();
   };
-  var btnClose = document.getElementById("close");
-  btnClose.addEventListener("click", () => {
+  document.getElementById("close").addEventListener("click", () => {
     ipc.send("closeApp");
   });
   document.getElementById("read").addEventListener("click", () => {
     ipcRenderer.send("open-document");
+  });
+  document.getElementById("browser-open").addEventListener("click", () => {
+    ipcRenderer.send("open-browser");
   });
   ipcRenderer.on("document-opened", (_, { filePath, content }) => {
     handleDocumentChange(filePath, content);

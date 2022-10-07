@@ -2,13 +2,14 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Hello World!</title>
+    <title>Memo</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body id="body">
-    <!-- <div class="container"> -->
+
     <div class="title-bar">
-      <button id="read">📂</button>
+      <button id="read">File</button>
+      <button id="browser-open">Browser</button>
       <input id="opacity" type="range" min="0.01" max="1" step="0.01" />
       <div class="draggable"></div>
       <button id="close">❌</button>
@@ -18,12 +19,9 @@
         <span class="material-icons"> note_add </span>
       </button>
     </div>
-    <!-- <span class="document-name" id="documentName">no file selected</span> -->
 
-    <!-- <div class="text__container"> -->
     <textarea id="fileTextarea" disabled class="textedit"></textarea>
-    <!-- </div> -->
-    <!-- </div> -->
+
     <script src="./renderer.js"></script>
   </body>
 </html>

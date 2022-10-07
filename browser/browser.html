@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Browser</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body id="browser">
+    <div class="title-bar">
+      <input id="address" />
+      <input id="browser-opacity" type="range" min="0.01" max="1" step="0.01" />
+      <div class="draggable"></div>
+      <button id="close-browser">❌</button>
+    </div>
+    <webview
+      src="https://www.github.com/"
+      useragent="electron-webview"
+    ></webview>
+
+    <script src="./renderer.js"></script>
+  </body>
+</html>

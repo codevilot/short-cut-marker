@@ -3,8 +3,9 @@ const storage = require("electron-localStorage");
 const ipc = ipcMain;
 const path = require("path");
 const fs = require("fs");
-function createWindow() {
-  const mainWindow = new BrowserWindow({
+let mainWindow;
+const createWindow = () => {
+  mainWindow = new BrowserWindow({
     width: 500,
     height: 500,
     transparent: true,
@@ -12,6 +13,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
+      webviewTag: true,
     },
   });
   mainWindow.loadFile("index.html");
@@ -25,21 +27,9 @@ function createWindow() {
       openedFilePath = filePath;
       mainWindow.webContents.send("document-opened", { filePath, content });
       storage.setItem("recentfile", filePath);
-      // }
     });
   };
 
-  ipc.on("minimizeApp", () => {
-    mainWindow.minimize();
-  });
-
-  ipc.on("maximizeApp", () => {
-    if (mainWindow.isMaximized()) {
-      mainWindow.restore();
-    } else {
-      mainWindow.maximize();
-    }
-  });
   ipc.on("closeApp", () => {
     mainWindow.close();
   });
@@ -54,6 +44,9 @@ function createWindow() {
         openFile(filePath);
       });
   });
+  ipc.on("open-browser", () => {
+    createChildWindow();
+  });
   ipc.on("file-content-updated", (_, textareaContent) => {
     fs.writeFile(openedFilePath, textareaContent, (error) => {
       if (error) {
@@ -61,7 +54,30 @@ function createWindow() {
       }
     });
   });
-}
+};
+const createChildWindow = () => {
+  childWindow = new BrowserWindow({
+    width: 500,
+    height: 500,
+    transparent: true,
+    frame: false,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+  });
+  ipc.on("close-browser", () => {
+    childWindow.close();
+  });
+  childWindow.loadFile("./browser/browser.html");
+  childWindow.once("ready-to-show", () => {
+    childWindow.show();
+  });
+};
+
+ipcMain.on("openChildWindow", (event, arg) => {
+  createChildWindow();
+});
 
 app.whenReady().then(() => {
   createWindow();
