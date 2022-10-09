@@ -7,6 +7,16 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+#browser-open,
+#close,
+#read {
+  filter: brightness(0) invert(1);
+  margin: 0.3rem;
+  background: none;
+  border: none;
+  color: white;
+  padding: 0;
+}
 .title-bar {
   place-content: space-between;
   display: flex;
@@ -16,12 +26,12 @@ body {
   -webkit-app-region: drag;
   width: -webkit-fill-available;
 }
-#close,
+/* #close,
 #read {
   background: none;
   border: none;
   filter: brightness(0) invert(1);
-}
+} */
 .displaynone {
   display: none;
 }

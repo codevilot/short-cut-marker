@@ -64,6 +64,8 @@ const createChildWindow = () => {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
+      webviewTag: true,
+      enableremotemodule: "true",
     },
   });
   ipc.on("close-browser", () => {

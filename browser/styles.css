@@ -47,3 +47,10 @@ body {
   right: 0;
   bottom: 0;
 }
+#address {
+  height: 25px;
+  width: 100%;
+}
+webview {
+  height: calc(100vh - 50px);
+}
