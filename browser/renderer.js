@@ -1,4 +1,5 @@
 const { ipcRenderer } = require("electron");
+const { changeBackground, changeOpacity } = require("../utils/background.js");
 const ipc = ipcRenderer;
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -6,14 +7,14 @@ window.addEventListener("DOMContentLoaded", () => {
     ipc.send("close-browser");
   });
   const $webview = document.querySelector("webview");
-  document.getElementById("browser-opacity").addEventListener("input", (e) => {
-    document.querySelector(
-      "#browser"
-    ).style.backgroundColor = `rgba(0, 0, 0, ${e.target.value})`;
-    $webview.style.opacity = `${e.target.value}`;
+  document.getElementById("browser-opacity").addEventListener("input", () => {
+    changeBackground("#browser-opacity", "#browser-color");
+    changeOpacity("webview", "#browser-opacity");
+  });
+  document.getElementById("browser-color").addEventListener("input", () => {
+    changeBackground("#browser-opacity", "#browser-color");
   });
   document.getElementById("address").addEventListener("keyup", (e) => {
-    console.log(e.code);
     if (e.code === "Enter") {
       $webview.loadURL(
         e.target.value.includes("http://")

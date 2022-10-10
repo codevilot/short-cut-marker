@@ -68,6 +68,7 @@ const createChildWindow = () => {
       enableremotemodule: "true",
     },
   });
+  childWindow.setAlwaysOnTop(true, "floating");
   ipc.on("close-browser", () => {
     childWindow.close();
   });

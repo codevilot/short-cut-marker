@@ -1,19 +1,18 @@
 const { ipcRenderer } = require("electron");
+const { changeBackground, changeOpacity } = require("./utils/background.js");
 const ipc = ipcRenderer;
 const storage = require("electron-localStorage");
 const path = require("path");
 const fs = require("fs");
+
 window.addEventListener("DOMContentLoaded", () => {
-  const el = {
-    openDocumentBtn: document.getElementById("openDocumentBtn"),
-    fileTextarea: document.getElementById("fileTextarea"),
-    opacity: document.getElementById("opacity"),
-  };
+  const $fileTextarea = document.querySelector("#fileTextarea");
+
   const recentfile = storage.getItem("recentfile");
   const handleDocumentChange = (filePath, content = "") => {
-    el.fileTextarea.removeAttribute("disabled");
-    el.fileTextarea.value = content;
-    el.fileTextarea.focus();
+    $fileTextarea.removeAttribute("disabled");
+    $fileTextarea.value = content;
+    $fileTextarea.focus();
   };
   document.getElementById("close").addEventListener("click", () => {
     ipc.send("closeApp");
@@ -27,13 +26,14 @@ window.addEventListener("DOMContentLoaded", () => {
   ipcRenderer.on("document-opened", (_, { filePath, content }) => {
     handleDocumentChange(filePath, content);
   });
-  el.fileTextarea.addEventListener("input", (e) => {
+  $fileTextarea.addEventListener("input", (e) => {
     ipcRenderer.send("file-content-updated", e.target.value);
   });
-  el.opacity.addEventListener("input", (e) => {
-    document.querySelector(
-      "#body"
-    ).style.backgroundColor = `rgba(0, 0, 0, ${e.target.value})`;
+  document.querySelector("#memo-color").addEventListener("input", () => {
+    changeBackground("#opacity", "#memo-color");
+  });
+  document.querySelector("#opacity").addEventListener("input", () => {
+    changeBackground("#opacity", "#memo-color");
   });
   if (recentfile) {
     fs.readFile(recentfile, "utf8", (error, content) => {

@@ -16,8 +16,7 @@ body {
   -webkit-app-region: drag;
   width: -webkit-fill-available;
 }
-#close,
-#read {
+#close-browser {
   background: none;
   border: none;
   filter: brightness(0) invert(1);
@@ -50,6 +49,7 @@ body {
 #address {
   height: 25px;
   width: 100%;
+  background: none;
 }
 webview {
   height: calc(100vh - 50px);
